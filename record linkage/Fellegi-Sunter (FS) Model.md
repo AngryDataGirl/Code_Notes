@@ -1,0 +1,3 @@
+The Fellegi-Sunter (FS) model is an **unsupervised classification algorithm** that assigns field-specific weights based on the agreement/disagreemnt between the corresponding fields. Due to its reasonable performance without the need for training data, the FS model has become widely used in many applications.
+
+- it has been recognized that the FS algorithm for probability record linkage is equivalent to the Naive Bayes algorithm and suffers from the same assumption of the independence of its features (an assumption that is typically not true)

@@ -1,0 +1,1 @@
+[How to Execute Raw SQL in SQLAlchemy - GeeksforGeeks](https://www.geeksforgeeks.org/how-to-execute-raw-sql-in-sqlalchemy/)
