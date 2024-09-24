@@ -170,6 +170,33 @@ WITH RECURSIVE nov_fridays AS
 | 3 | 2023-11-17 |
 | 4 | 2023-11-24 |
 
+
+## Example 6: generating dates - weeks and years
+
+```sql
+WITH everyweek (event_year, event_week) AS (
+    SELECT
+        2023 AS event_year,
+        1 AS event_week
+    FROM dual
+    UNION ALL
+    SELECT
+--        event_year + 1 ,
+--        event_week + 1 
+        event_year + CASE WHEN event_week = 52 THEN 1 ELSE 0 END,
+        CASE WHEN event_week = 52 THEN 1 ELSE event_week + 1 END
+    FROM everyweek
+    WHERE event_year <= 2024 and event_week <= 52
+)
+
+SELECT event_year,event_week
+--, week_number
+FROM everyweek
+ORDER BY event_year,event_week
+--, week_number;
+;
+```
+
 **References:**
 - [https://dev.mysql.com/doc/refman/8.0/en/with.html](https://dev.mysql.com/doc/refman/8.0/en/with.html)
 - [https://leetcode.com/discuss/study-guide/1600722/database-sql-primer-part-3-common-table-expressions-ctes](https://leetcode.com/discuss/study-guide/1600722/database-sql-primer-part-3-common-table-expressions-ctes)
