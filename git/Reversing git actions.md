@@ -1,11 +1,7 @@
 ## Undo `git add` for uncommitted changes with:
 
 ```
-
 git reset <file>
-
-  
-
 ```
 
 That will remove the file from the current index (the "about to be committed" list) without changing anything else.
