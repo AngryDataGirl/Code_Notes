@@ -197,6 +197,38 @@ ORDER BY event_year,event_week
 ;
 ```
 
+## Example 7: generating dates - weeks and years WITH specific date ranges
+
+- create CTE with the specified date ranges, can be from DUAL or from another table
+- feed that into the second cte, which is recursive
+- note that ORACLE has interesting recursive syntax where you have to use ()
+
+```sql
+WITH min_max_dates AS (
+    SELECT 
+        MIN(TO_DATE(SUBSTR(event_timestamp,1,10),'YYYY-MM-DD')) AS min_date,
+        MAX(TO_DATE(SUBSTR(event_timestamp,1,10),'YYYY-MM-DD')) AS max_date
+    FROM CARTE_ACCES
+),
+everyweek (event_year, event_week) AS (
+    SELECT
+        EXTRACT(YEAR FROM min_date) AS event_year,
+        TO_NUMBER(TO_CHAR(min_date, 'WW')) AS event_week
+    FROM min_max_dates
+    UNION ALL
+    SELECT
+        event_year + CASE WHEN event_week = 52 THEN 1 ELSE 0 END,
+        CASE WHEN event_week = 52 THEN 1 ELSE event_week + 1 END
+    FROM everyweek
+    WHERE 
+        event_year <= (SELECT EXTRACT(YEAR FROM max_date) FROM min_max_dates) 
+        AND event_week <= 52
+)
+SELECT event_year, event_week
+FROM everyweek
+ORDER BY event_year, event_week;
+```
+
 **References:**
 - [https://dev.mysql.com/doc/refman/8.0/en/with.html](https://dev.mysql.com/doc/refman/8.0/en/with.html)
 - [https://leetcode.com/discuss/study-guide/1600722/database-sql-primer-part-3-common-table-expressions-ctes](https://leetcode.com/discuss/study-guide/1600722/database-sql-primer-part-3-common-table-expressions-ctes)
