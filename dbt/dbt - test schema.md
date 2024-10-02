@@ -1,5 +1,10 @@
-#Reference
-#CodeSnippet 
+# Setting up tests for your dbt project 
+
+https://docs.getdbt.com/docs/build/data-tests#:~:text=When%20you%20run%20dbt%20test,%20dbt%20will%20tell%20you%20if
+
+The simplest way to define a data test is by writing the exact SQL that will return failing records. We call these "singular" data tests, because they're one-off assertions usable for a single purpose.
+
+These tests are defined in .sql files, typically in your tests directory (as defined by your test-paths config). You can use Jinja (including ref and source) in the test definition, just like you can when creating models. Each .sql file contains one select statement, and it defines one data test.
 
 ## Where to save singular tests
 
