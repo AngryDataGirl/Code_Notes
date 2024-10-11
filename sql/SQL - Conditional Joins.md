@@ -1,3 +1,5 @@
+Conditional Join (mostly) equivalent to Union with Separate Join Conditions
+
 ```sql
 FROM TABLE_A A
 LEFT JOIN TABLE_B B B ON 
