@@ -9,8 +9,6 @@ this model will:
 
 pre hook : collect all test tables and union them into a temp table
 
-create new table TEST_FAILURES_i which stands for test failures individual (as it returns individual pris, emp stat id and the test name where it failed)
-
 post hook :
 
 1. drops the test tables as the results are now in this single table
