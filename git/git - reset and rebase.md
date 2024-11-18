@@ -7,6 +7,30 @@ Resets the local copy of main / master (which is messed up) to the original remo
 git reset --hard origin/main
 ```
 
+# Rebase versus Merge 
+
+It's simple. With rebase you say to use another branch as the new base for your work. If you have, for example, a branch master, you create a branch to implement a new feature, and say you name it cool-feature, of course, the master branch is the base for your new feature. Now, at a certain point, you want to add the new feature you implemented in the master branch. You could just switch to master and merge the cool-feature branch:
+
+```
+$ git checkout master
+$ git merge cool-feature
+```
+But this way a new dummy commit is added. If you want to avoid spaghetti-history you can rebase:
+
+```
+$ git checkout cool-feature
+$ git rebase master
+```
+
+And then merge it in master:
+
+```
+$ git checkout master
+$ git merge cool-feature
+```
+
+This time, since the topic branch has the same commits of master plus the commits with the new feature, the merge will be just a fast-forward.
+
 # Rebase
 
 If you check origin and it is up to date -- then likely what happened was that commits were pushed to origin from another repo, while you were still committing locally. You based commit C on commit A because that was the latest work you had fetched from upstream at the time. However, before you tried to push back to origin, someone else pushed the commit B. This causes dev history to diverged into separate paths. And looks like this:
